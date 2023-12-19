@@ -19,9 +19,6 @@ ggscatter(as.data.frame(drug.auc), x = "HALLMARK.IFNG.Parsimony", y = "Venetocla
   theme(legend.position = "none", axis.title = element_text(size = 26),
         axis.text.x = element_text(size = 23),axis.text.y = element_text(size = 23),
         axis.ticks = element_blank()) 
-ggsave("Research/manuscript/cell_of_origin/paper/Figure6/parsi_IFNGscore_Venetoclax_corr.pdf",height=8,width=8)
-rm(bulk.meta1,IFITM3,drug.auc)
-
 
 
 
@@ -74,21 +71,19 @@ p=ggsurvplot(fit,data=survival,pval=T,palette = c("blue","red"),xlab="Survival T
              xscale=365,xlim=c(0,5*365),break.x.by = 1*365,surv.median.line = "hv",
              legend.title="Parsimonious IFNG", risk.table = TRUE,#title="BEAT2, >0.5",
              legend.labs = c("Below Median", "Above Median"),pval.coord = c(1000,0.8),pval.size =10) 
-pdf("Research/manuscript/cell_of_origin/paper/Figure6/Fig6_Parsimony_IFNG_survival.pdf",width=12, height=10)
+
 p$plot+theme(axis.text.x=element_text(size=28),axis.title.y = element_text(size = 27),
              axis.text.y=element_text(size = 28),axis.title.x = element_text(size = 27),
              legend.text=element_text(size = 25),legend.title=element_text(size = 26)) 
-dev.off()
+
 
 
 ####HR plot for parsimonous score
 survival[survival$Dead_Alive=="Alive",'Dead_Alive']=0
 survival[survival$Dead_Alive=="Dead",'Dead_Alive']=1
 survival$Dead_Alive=as.numeric(survival$Dead_Alive)
-pdf("Research/manuscript/cell_of_origin/paper/Figure6/Fig6_Parsimony_IFNG_HR.pdf",width=8,height =8)
 smoothCoxph(survival$OS_days,survival$Dead_Alive,survival$HALLMARK.IFNG.Parsimony,xlab="IFNG Parsimony",main="IFNG Parsimony") 
 abline(v = median(survival$HALLMARK.IFNG.Parsimony), col="grey", lwd=3, lty=2)
-dev.off()
 gene.cox <- coxph(Surv(OS_days, Dead_Alive==1) ~ HALLMARK.IFNG.Parsimony, survival)
 summary(gene.cox)
 

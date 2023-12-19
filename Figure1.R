@@ -28,8 +28,6 @@ ggplot(corr.ifng,aes(x=pathway, y=corr,fill=pathway)) + labs(x=NULL, y=NULL) +
   #scale_fill_gradientn(colours =colorRampPalette(rev(brewer.pal(n = 7,name ="RdYlBu")))(100), breaks=c(-1,0,1), limits=c(-1,1)) + 
   scale_fill_manual(values = c(rep("steelblue1",6),rep("hotpink1",19))) + guides(fill=FALSE) + theme_bw() +
   theme(axis.text.x = element_text(size=8, angle=0),axis.text.y = element_text(size=10)) + coord_flip()
-ggsave("Research/manuscript/cell_of_origin/paper/Figure1/fig1_bulk_IFNG_pathway_corr_barplot.pdf",height=15,width=20, units="cm")
-
 
 
 
@@ -41,7 +39,6 @@ ggscatter(bulk.meta, x="HALLMARK.IFNG.RESPONSE", y="Percent_Blasts_in_BM", add="
           ylab = "Blast frequency", xlab = "HALLMARK IFNG RESPONSE",size=1) + 
   theme(legend.position = "right", axis.title = element_text(size = 10),
         axis.text = element_text(size = 10))
-ggsave("Research/manuscript/cell_of_origin/paper/Figure1/fig1_bulk_ifng_percent_blast_cor.pdf",width=10,height =10,unit="cm")
 
 
 ############################################
@@ -64,25 +61,20 @@ ggplot(trial,aes(x=CG_group1,y=HALLMARK.IFNG.RESPONSE)) +
   theme(legend.position="none",
         axis.title.y = element_text(size = 12),axis.title.x = element_blank(),
         axis.text.x = element_text(size = 10,angle = 30,hjust = 1),axis.text.y = element_text(size = 12))
-ggsave("Research/manuscript/cell_of_origin/paper/Figure1/fig1_bulk_ifng_diploid_box.pdf",width=8,height =10,unit="cm")
-
 
 
 ############################################
 # Fig 1F
 ############################################
 #pie chart showing the percentage of patients with abnormal IFNG level at diagnosis
-pdf("Research/manuscript/cell_of_origin/paper/Submission/NatComm/Revision/cytokine_IFNG_abnormal_pie1.pdf",width=8, height=8)
 pie(c(29,14),labels = c("Abnormal","Normal"), col=c("#1f77b4","#ff7f0e"))
-dev.off()
+
 
 ############################################
 # Fig 1G
 ############################################
-pdf("Research/manuscript/cell_of_origin/paper/Figure1/fig1_bulk_IFNG_corr_matrix.pdf", width = 10, height = 10)
 corrplot(cor(bulk.meta[,c("HALLMARK.IFNG.RESPONSE","hla1","HLA2","exhaustion_markers","cd8_dysfunction","senescence")]),method = 'circle',type="upper",col=colorRampPalette(rev(brewer.pal(n = 7, name = "RdYlBu")))(100),tl.col = "black") +
   theme(axis.text.x = element_text(size = 12), axis.text.y = element_text(size = 12),
         legend.title = element_text(size = 10),legend.text = element_text(size = 10)) 
-dev.off()
 #colorRampPalette(c("blue","white","red"))(200)
 
